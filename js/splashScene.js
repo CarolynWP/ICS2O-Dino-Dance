@@ -8,12 +8,12 @@
 //function to extend Phaser's code
 class SplashScene extends Phaser.Scene {
 		//function to run Phaser's scene constructor code which will construct the scene
-	constructor () {
+	constructor() {
 		super({ key: "splashScene" })
-}
+	}
 //function to initialize and get the scene running
 	init(data) {
-		this.cameras.main.setBackgroundColor("c5e6e6") 
+		this.cameras.main.setBackgroundColor("ffffff") 
 	}
 	//function to print out the console for debugging purposes
 	preload() {
@@ -28,4 +28,5 @@ class SplashScene extends Phaser.Scene {
 	}
 }
 
-export default SplashScene
+export default SplashScene  
+
