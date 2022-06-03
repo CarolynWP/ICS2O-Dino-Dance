@@ -27,7 +27,7 @@ const config = {
     }
   },
   //Background colour of the game
-  backgroundColor: 0x5f6e7a,
+  backgroundColor: 0xffffff,
 	//the scale to automatically change the size of the screen depending on how large or small your device is
   scale: {
     mode: Phaser.Scale.FIT,
