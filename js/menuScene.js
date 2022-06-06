@@ -10,7 +10,7 @@ class MenuScene extends Phaser.Scene {
 	//function to run Phaser's scene constructor code which will construct the scene
   constructor () {
     super({ key: 'menuScene' })
-
+ 
 		this.menuSceneBackgroundImage = null
 		//to add the button
 		this.startButton =  null
@@ -33,6 +33,10 @@ class MenuScene extends Phaser.Scene {
 		this.menuSceneBackgroundImage = this.add.sprite(0,0,'menuSceneBackground')
 		this.menuSceneBackgroundImage.x = 1920 / 2
 		this.menuSceneBackgroundImage.y = 1080 / 2
+
+		this.startButton = this.add.sprite(1920 / 2, (1080 / 2) + 100, 'startButton')
+		//to be able to use the button
+		this.startButton.setInteractive({ useHandCursor: true})
   }
 
   update (time, delta) {
