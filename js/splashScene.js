@@ -1,5 +1,5 @@
 /* global Phaser */
-//copyright Mr. Coxall
+//copyright (c) Mr. Coxall
 //modified by Carolyn
 //2022
 
@@ -25,7 +25,7 @@ class SplashScene extends Phaser.Scene {
 	}
 	//to place the splash scene image in an x y coordinate
 	create(data) {
-		this.splashSceneBackgroundImage = this.add.sprite(0,0,'splashSceneBackground')
+		this.splashSceneBackgroundImage = this.add.sprite(0,0,'splashSceneBackground').setScale(2.75)
 		//to put it in the middle of our scene
 		this.splashSceneBackgroundImage.x = 1920 / 2
 		this.splashSceneBackgroundImage.y = 1080 / 2
@@ -33,7 +33,7 @@ class SplashScene extends Phaser.Scene {
 	//on the very first update it will switch from the splash scene to the title scene
 	update(time, delta) {
 		//to make the splash screen last longer
-		if (time > 3000){
+		if (time > 3500){
 			this.scene.switch("titleScene")
 		}
 	}

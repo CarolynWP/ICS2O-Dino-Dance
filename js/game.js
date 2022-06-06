@@ -8,10 +8,14 @@
 //bringing in the javascript files
 import SplashScene from "./splashScene.js"
 import TitleScene from "./titleScene.js"
+import MenuScene from "./menuScene.js"
+import GameScene from "./gameScene.js"
 
 //The game scene constants
 const splashScene = new SplashScene()
 const titleScene = new TitleScene()
+const menuScene = new MenuScene()
+const gameScene = new GameScene()
 
 //start the Phaser game
 const config = {
@@ -42,5 +46,7 @@ const game = new Phaser.Game(config)
 //the words in quotations are keys. They are global and cannot be reused
 game.scene.add('splashScene', splashScene)
 game.scene.add('titleScene', titleScene)
+game.scene.add('menuScene', menuScene)
 
+//to start displaying the scenes
 game.scene.start("splashScene") 
