@@ -42,11 +42,12 @@ const config = {
 
 const game = new Phaser.Game(config)
 
-//load the scenes to the game
+//load the scenes to the game and manage them
 //the words in quotations are keys. They are global and cannot be reused
 game.scene.add('splashScene', splashScene)
 game.scene.add('titleScene', titleScene)
 game.scene.add('menuScene', menuScene)
+game.scene.add('gameScene', gameScene)
 
 //to start displaying the scenes
 game.scene.start("splashScene") 

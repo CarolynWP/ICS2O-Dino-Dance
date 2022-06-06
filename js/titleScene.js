@@ -23,12 +23,13 @@ class TitleScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor('#ffffff')
   }
 
-//function to print out the console for debugging purposes
+//function to print out the console for debugging purposes as well as load the image
   preload () {
     console.log('Title Scene')
 		this.load.image('titleSceneBackground', 'assets/Title_Scene.png')
   }
 
+	//to place the image and put it on the scree
   create (data) {
 		this.titleSceneBackgroundImage = this.add.sprite(0,0,'titleSceneBackground')
 		//to put it in the middle of our scene
@@ -39,6 +40,8 @@ class TitleScene extends Phaser.Scene {
   }
 
   update (time, delta) {
+		if (time > 6500)
+			this.scene.switch('menuScene')
   }
 }
 

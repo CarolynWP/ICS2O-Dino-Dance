@@ -10,6 +10,10 @@ class MenuScene extends Phaser.Scene {
 	//function to run Phaser's scene constructor code which will construct the scene
   constructor () {
     super({ key: 'menuScene' })
+
+		this.menuSceneBackgroundImage = null
+		//to add the button
+		this.startButton =  null
   }
 
 //function to initialize and get the scene running
@@ -17,12 +21,18 @@ class MenuScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor('#ffffff')
   }
 
-//function to print out the console for debugging purposes
+//function to load the images and print out the function for debugging purposes
   preload () {
     console.log('Menu Scene')
+		this.load.image('menuSceneBackground', 'assets/Dino_Dance.png')
+		this.load.image('startButton', 'assets/startButton.webp')
   }
 
+	//to place the images and put it on the screen
   create (data) {
+		this.menuSceneBackgroundImage = this.add.sprite(0,0,'menuSceneBackground')
+		this.menuSceneBackgroundImage.x = 1920 / 2
+		this.menuSceneBackgroundImage.y = 1080 / 2
   }
 
   update (time, delta) {
