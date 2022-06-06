@@ -35,12 +35,17 @@ class MenuScene extends Phaser.Scene {
 		this.menuSceneBackgroundImage.y = 1080 / 2
 
 		this.startButton = this.add.sprite(1920 / 2, (1080 / 2) + 100, 'startButton')
-		//to be able to use the button
+		//to be able to use the button and make it interactive
 		this.startButton.setInteractive({ useHandCursor: true})
+		this.startButton.on('pointerdown',() => this.clickButton())
   }
 
+	//to make the button do something and start the game scene
   update (time, delta) {
   }
+	clickButton (){
+		this.scene.start('gameScene')
+	}
 }
 
 export default MenuScene
