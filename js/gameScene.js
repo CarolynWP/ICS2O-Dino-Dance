@@ -43,7 +43,7 @@ class GameScene extends Phaser.Scene {
 		const keyRightObj = this.input.keyboard.addkey('RIGHT')
 		
 		//IF statement if the left key is down 
-		if (keyLeftObj.isDown  === true){
+		 if (keyLeftObj.isDown  === true){
 			//if the left key is down, move it to the left
 			this.ship.x = this.ship.x - 20
 			
@@ -61,8 +61,9 @@ class GameScene extends Phaser.Scene {
 			if (this.ship.x > 1920) {
 				this.ship.x = 1920
 			}
-		}
+		} 
   }
+	
 }
 
 export default GameScene
