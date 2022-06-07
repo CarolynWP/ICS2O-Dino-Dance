@@ -27,7 +27,7 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      debug: true
+      debug: false
     }
   },
   //Background colour of the game
