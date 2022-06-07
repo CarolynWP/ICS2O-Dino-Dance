@@ -38,6 +38,14 @@ class GameScene extends Phaser.Scene {
   }
 
   update (time, delta) {
+		//to be able to move the dinosaur sprite
+		const keyLeftObj = this.input.keyboard.addkey('LEFT')
+		
+		//IF statement if the left key is down 
+		if (keyLeftObj.isDown  === true){
+			//if the left key is down, move it left
+			this.ship.x = this.ship. - 1 
+		}
   }
 }
 
