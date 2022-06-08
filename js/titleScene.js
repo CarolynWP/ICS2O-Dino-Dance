@@ -29,7 +29,7 @@ class TitleScene extends Phaser.Scene {
 		this.load.image('titleSceneBackground', 'assets/Title_Scene.png')
   }
 
-	//to place the image and put it on the scree
+	//to place the image and put it on the screen
   create (data) {
 		this.titleSceneBackgroundImage = this.add.sprite(0,0,'titleSceneBackground')
 		//to put it in the middle of our scene
