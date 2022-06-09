@@ -28,9 +28,11 @@ class GameScene extends Phaser.Scene {
 		this.load.image('starBackground', '/assets/gameBackground.jpg')
 		this.load.image('ship', 'assets/dinoSprite.png')
 		this.load.image('missile','assets/soundMissile.png')
+		//sound
+		this.load.audio('laser','sounds/dinoRoar.mp3')
   }
 
-	//funcgtion to place the image in the center of the screen and change the size
+	//function to place the image in the center of the screen and change the size
   create (data) {
 		this.background = this.add.image(0,0, 'starBackground').setScale(3.5)
 		this.background.setOrigin(0,0)
@@ -71,15 +73,26 @@ class GameScene extends Phaser.Scene {
 		if (keySpaceObj.isDown === true){
 			if (this.fireMissile === false){
 				//if the spacebar is down, a missile is fired
-			this.fireMissile = true
-			const aNewMissile = this.physics.add.sprite(this.ship.x, this.ship.y, 'missile')
-			this.missileGroup.add(aNewMissile)
+				this.fireMissile = true
+				const aNewMissile = this.physics.add.sprite(this.ship.x-60, this.ship.y-100, 'missile')
+				this.missileGroup.add(aNewMissile)
+				//to play the sound when it fires
+				this.sound.play('laser')
 			}
 		}
 		//to check and make sure the spacebar has been lifted up to be able to reset so you can fire multiple missiles
 		if (keySpaceObj.isUp === true){
 			this.fireMissile = false
 		}
+		//each missile group will run a function
+		this.missileGroup.children.each(function (item){
+			//for each item (the missile), it will change the y value and move it upwards
+			item.y = item.y - 15
+			//to check if the missile has left the screen. If so, it will be DESTROYED
+			if (item.y < 0){
+				item.destroy()
+			}
+		})
   }
 	
 }
