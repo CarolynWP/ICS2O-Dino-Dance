@@ -7,6 +7,17 @@
 
 //function to extend Phaser's code
 class GameScene extends Phaser.Scene {
+	//create a meteor to fall randomly from one point at the top and fall down to the bottom
+	createAlien() {
+		const alienXLocation = Math.floor(Math.random() * 1920) + 1
+		//to make the meteor move in different directions and not just straight down
+		let alienXVelocity = Math.floor(Math.random() * 50) + 1
+		alienXVelocity *= Math.round(Math.random()) ? 1 : -1
+		const anAlien = this.physics.add.sprite(alienXLocation, -100, 'alien')
+		anAlien.body.velocity.y = 200
+		anAlien.body.velocity.x = alienXVelocity
+		this.alienGroup.add(anAlien)
+	}
 	//function to run Phaser's scene constructor code which will construct the scene
   constructor () {
     super({ key: 'gameScene' })
@@ -28,8 +39,10 @@ class GameScene extends Phaser.Scene {
 		this.load.image('starBackground', '/assets/gameBackground.jpg')
 		this.load.image('ship', 'assets/dinoSprite.png')
 		this.load.image('missile','assets/soundMissile.png')
+		this.load.image('alien', 'assets/meteor.png')
 		//sound
 		this.load.audio('laser','sounds/dinoRoar.mp3')
+		this.load.audio('explosion', 'sounds/explosion.mp3')
   }
 
 	//function to place the image in the center of the screen and change the size
@@ -39,8 +52,22 @@ class GameScene extends Phaser.Scene {
 		
 		//to give the sprites physics with collisions 
 		//for the dinosaur sprite (ship), it will also be placed at the bottom of the screen
-		this.ship = this.physics.add.sprite(1920 / 2, 1080 - 250, 'ship').setScale(1.5)
+		this.ship = this.physics.add.sprite(1920 / 2, 1080 - 250, 'ship')
 		this.missileGroup = this.physics.add.group()
+
+		//group for the meteor
+		this.alienGroup = this.add.group()
+		this.createAlien()
+
+		//to add collisions between the sound waves and meteors
+		this.physics.add.collider(this.missileGroup, this.alienGroup, function (missileCollide, alienCollide){
+			//if the missile touches a meteor, the function is triggered and they are both destroyed then two meteors show up
+			alienCollide.destroy()
+			missileCollide.destroy()
+			this.sound.play('explosion')
+			this.createAlien()
+			this.createAlien()
+		}.bind(this))
   }
 
   update (time, delta) {
