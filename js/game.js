@@ -10,14 +10,14 @@ import SplashScene from "./splashScene.js"
 import TitleScene from "./titleScene.js"
 import MenuScene from "./menuScene.js"
 import GameScene from "./gameScene.js"
-import GameRules from "./gameRules.js"
+import RuleScene from "./gameRules.js"
 
 //The game scene constants
 const splashScene = new SplashScene()
 const titleScene = new TitleScene()
 const menuScene = new MenuScene()
 const gameScene = new GameScene()
-const gameRules = new GameRules()
+const ruleScene = new RuleScene()
 
 //start the Phaser game
 const config = {
@@ -50,7 +50,7 @@ game.scene.add('splashScene', splashScene)
 game.scene.add('titleScene', titleScene)
 game.scene.add('menuScene', menuScene)
 game.scene.add('gameScene', gameScene)
-game.scene.add('gameRules', gameRules)
+game.scene.add('ruleScene', ruleScene)
 
 //to start displaying the scenes
 game.scene.start("splashScene") 

@@ -3,46 +3,41 @@
 //modified by Carolyn
 //2022
 
-//the Game rules js file
+//the Rules Scene JS file
 
-//this is to display the rules of the game. After clicking the (H) button, it will switch to the game scene and start the game.
+class RuleScene extends Phaser.Scene {
+		//function to run Phaser's scene constructor code which will construct the scene
+	constructor() {
+		super({ key: "ruleScene" })
 
-//function to extend Phaser's code
-class GameRules extends Phaser.Scene {
-	//function to run Phaser's scene constructor code which will construct the scene
-  constructor () {
-    super({ key: 'gameRules' })
- 
-		this.gameRulesBackgroundImage = null
-  }
-
+		this.ruleSceneBackgroundImage = null
+	}
 //function to initialize and get the scene running
-  init (data) {
-    this.cameras.main.setBackgroundColor('#ffffff')
-  }
-
-//function to load the images and print out the function for debugging purposes
-  preload () {
-    console.log('Game Rules')
-		this.load.image('gameRulesbackground', './assets/gameRules.jpg')
-  }
-
-	//to place the images and put it on the screen
-  create (data) {
-		this.gameRulesBackgroundImage = this.add.sprite(0,0,'gameRulesBackground')
-		this.gameRulesBackgroundImage.x = 1920 / 2
-		this.gameRulesBackgroundImage.y = 1080 / 2
-  }
-
-	//
-  update (time, delta) {
-		/* document.addEventListener("keyup", function(event) {
-    if (event.keyCode === 72) {
-       this.scene.start('gameScene')
-    }
-		}) */
-		this.scene.start('gameScene')
-  }
+	init(data) {
+		this.cameras.main.setBackgroundColor("ffffff") 
 	}
 
-export default GameRules
+	preload() {
+		console.log("Rule Scene")
+		//load the image for the rules scene
+		this.load.image('ruleSceneBackground', './assets/gameRules.jpg')
+	}
+	//to place the rules scene image in an x y coordinate
+	create(data) {
+		this.ruleSceneBackgroundImage = this.add.sprite(0,0,'ruleSceneBackground').setScale(2.75)
+		//to put it in the middle of our scene
+		this.ruleSceneBackgroundImage.x = 1920 / 2
+		this.ruleSceneBackgroundImage.y = 1080 / 2
+	}
+	//Once you press the letter H, it will switch to the game scene.
+	update(time, delta) {
+		//constant for the H key
+    const keyLeftObj = this.input.keyboard.addKey('H')
+		 if (keyLeftObj.isDown  === true){
+			//if the H key has been pressed down, switch to the game scene
+			this.scene.start('gameScene')
+		}
+	}
+}
+
+export default RuleScene  
