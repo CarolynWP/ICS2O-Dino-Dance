@@ -24,7 +24,7 @@ class GameRules extends Phaser.Scene {
 //function to load the images and print out the function for debugging purposes
   preload () {
     console.log('Game Rules')
-		this.load.image('gameRulesbackground', 'assets/gameRules.jpg')
+		this.load.image('gameRulesbackground', './assets/gameRules.jpg')
   }
 
 	//to place the images and put it on the screen
@@ -36,11 +36,12 @@ class GameRules extends Phaser.Scene {
 
 	//
   update (time, delta) {
-		document.addEventListener("keyup", function(event) {
+		/* document.addEventListener("keyup", function(event) {
     if (event.keyCode === 72) {
        this.scene.start('gameScene')
     }
-		})
+		}) */
+		this.scene.start('gameScene')
   }
 	}
 
