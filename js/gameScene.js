@@ -78,6 +78,7 @@ class GameScene extends Phaser.Scene {
 			this.physics.add.sprite(alienCollide.x, alienCollide.y, 'meteorDeath')
 
 			//meteorDeath.destroy()
+			
 			alienCollide.destroy()
 			missileCollide.destroy()
 			
