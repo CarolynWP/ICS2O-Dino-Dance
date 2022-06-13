@@ -31,6 +31,7 @@ class GameScene extends Phaser.Scene {
 		this.scoreText = null
 		//score font, size, and colour
 		this.scoreTextStyle = {font: '65px Arial', fill: "#ffffff", align: 'center'}
+		this.gameOverTextStyle = {font: '65px Arial', fill: "#ff0000", align: 'center'}
   }
 
 	//function to initialize and get the scene running
@@ -46,7 +47,8 @@ class GameScene extends Phaser.Scene {
 		this.load.image('ship', 'assets/dinoSprite.png')
 		this.load.image('missile','assets/soundMissile.png')
 		this.load.image('alien', 'assets/meteor.png')
-		//sound
+		this.load.image('gameOver', 'assets/gameOver.png')
+		//sounds
 		this.load.audio('laser','sounds/dinoRoar.mp3')
 		this.load.audio('explosion', 'sounds/explosion.mp3')
   }
@@ -56,7 +58,7 @@ class GameScene extends Phaser.Scene {
 		this.background = this.add.image(0,0, 'starBackground').setScale(3.5)
 		this.background.setOrigin(0,0)
 		//to show the score on the screen
-		this.scoreText = this.add.text(10,10, 'Score' + this.score.toString(), this.scoreTextStyle)
+		this.scoreText = this.add.text(10,10, 'Score ' + this.score.toString(), this.scoreTextStyle)
 		
 		//to give the sprites physics with collisions 
 		//for the dinosaur sprite (ship), it will also be placed at the bottom of the screen
@@ -86,9 +88,10 @@ class GameScene extends Phaser.Scene {
 		this.physics.add.collider(this.ship, this.alienGroup, function (shipCollide, alienCollide){
 		this.sound.play('explosion')
 		this.physics.pause()
-		allienCollide.destroy()
+		alienCollide.destroy()
 		shipCollide.destroy()
-			this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over! Click to play again.", this.gameOvertextStyle).setOrigin(0.5)
+		this.background = this.add.image(1920 / 2, 1080 / 2, 'gameOver')
+			this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over! Click to play again.", this.gameOverTextStyle).setOrigin(0.5)
 			this.gameOverText.setInteractive({useHandCursor: true})
 			this.gameOverText.on('pointerdown', () => this.scene.start ('gameScene'))
 		}.bind(this))
