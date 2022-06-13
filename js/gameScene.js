@@ -43,11 +43,12 @@ class GameScene extends Phaser.Scene {
   preload () {
     console.log('Game Scene')
 		//images
-		this.load.image('starBackground', './assets/gameBackground.jpg')
+		this.load.image('starBackground', '/assets/gameBackground.jpg')
 		this.load.image('ship', 'assets/dinoSprite.png')
 		this.load.image('missile','assets/soundMissile.png')
 		this.load.image('alien', 'assets/meteor.png')
 		this.load.image('gameOver', 'assets/gameOver.png')
+		this.load.image('meteorDeath', 'assets/explosion.png')
 		//sounds
 		this.load.audio('laser','sounds/dinoRoar.mp3')
 		this.load.audio('explosion', 'sounds/explosion.mp3')
@@ -68,12 +69,18 @@ class GameScene extends Phaser.Scene {
 		//group for the meteor
 		this.alienGroup = this.add.group()
 		this.createAlien()
-
+		
+		//var meteorDeath = ('meteorDeath')
+		
 		//to add collisions between the sound waves and meteors
-		this.physics.add.collider(this.missileGroup, this.alienGroup, function (missileCollide, alienCollide){
+		this.physics.add.collider(this.missileGroup, this.alienGroup, function (missileCollide, alienCollide, meteorDeath){
 			//if the missile touches a meteor, the function is triggered and they are both destroyed then two meteors show up
+			this.physics.add.sprite(alienCollide.x, alienCollide.y, 'meteorDeath')
+
+			//meteorDeath.destroy()
 			alienCollide.destroy()
 			missileCollide.destroy()
+			
 			//explosion sound plays
 			this.sound.play('explosion')
 			//score gets updated
@@ -90,11 +97,20 @@ class GameScene extends Phaser.Scene {
 		this.physics.pause()
 		alienCollide.destroy()
 		shipCollide.destroy()
+		this.score = 0
 		this.background = this.add.image(1920 / 2, 1080 / 2, 'gameOver')
 			this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over! Click to play again.", this.gameOverTextStyle).setOrigin(0.5)
 			this.gameOverText.setInteractive({useHandCursor: true})
 			this.gameOverText.on('pointerdown', () => this.scene.start ('gameScene'))
 		}.bind(this))
+
+		//you win screen
+		/* if (this.score === 100 ){
+			this.background = this.add.image(1920 / 2, 1080 / 2, 'gameOver')
+			this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "You win! Click to play again.", this.gameOverTextStyle).setOrigin(0.5)
+			this.gameOverText.setInteractive({useHandCursor: true})
+			this.gameOverText.on('pointerdown', () => this.scene.start ('gameScene'))
+		} */
   }
 
   update (time, delta) {
