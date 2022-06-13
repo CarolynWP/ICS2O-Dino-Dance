@@ -21,10 +21,16 @@ class GameScene extends Phaser.Scene {
 	//function to run Phaser's scene constructor code which will construct the scene
   constructor () {
     super({ key: 'gameScene' })
-
+		
 		this.background = null
 		this.ship = null
 		this.fireMissile = false
+		//the variable that will hold the score: First set to zero
+		this.score = 0
+		//to display the score text
+		this.scoreText = null
+		//score font, size, and colour
+		this.scoreTextStyle = {font: '65px Arial', fill: "#ffffff", align: 'center'}
   }
 
 	//function to initialize and get the scene running
@@ -49,6 +55,8 @@ class GameScene extends Phaser.Scene {
   create (data) {
 		this.background = this.add.image(0,0, 'starBackground').setScale(3.5)
 		this.background.setOrigin(0,0)
+		//to show the score on the screen
+		this.scoreText = this.add.text(10,10, 'Score' + this.score.toString(), this.scoreTextStyle)
 		
 		//to give the sprites physics with collisions 
 		//for the dinosaur sprite (ship), it will also be placed at the bottom of the screen
@@ -64,9 +72,25 @@ class GameScene extends Phaser.Scene {
 			//if the missile touches a meteor, the function is triggered and they are both destroyed then two meteors show up
 			alienCollide.destroy()
 			missileCollide.destroy()
+			//explosion sound plays
 			this.sound.play('explosion')
+			//score gets updated
+			this.score = this.score + 1
+			this.scoreText.setText('Score: ' + this.score.toString())
+			//new meteors are created
 			this.createAlien()
 			this.createAlien()
+		}.bind(this))
+
+		//to make the Game Over screen
+		this.physics.add.collider(this.ship, this.alienGroup, function (shipCollide, alienCollide){
+		this.sound.play('explosion')
+		this.physics.pause()
+		allienCollide.destroy()
+		shipCollide.destroy()
+			this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over! Click to play again.", this.gameOvertextStyle).setOrigin(0.5)
+			this.gameOverText.setInteractive({useHandCursor: true})
+			this.gameOverText.on('pointerdown', () => this.scene.start ('gameScene'))
 		}.bind(this))
   }
 
