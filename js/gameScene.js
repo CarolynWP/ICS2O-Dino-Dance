@@ -44,15 +44,16 @@ class GameScene extends Phaser.Scene {
   preload () {
     console.log('Game Scene')
 		//images
-		this.load.image('ship', 'assets/dinoSprite.png')	this.load.image('missile','assets/soundMissile.png')
-		this.load.image('alien', 'assets/meteor.png')
-		this.load.image('starBackground', 'assets/gameBackground.jpg')
-		this.load.image('gameOver', 'assets/gameOver.png')
-		this.load.image('meteorDeath', 'assets/explosion.png')
-		this.load.image('gameWin', 'assets/youWin.jpg')
+		this.load.image('ship', 'assets/dinoSprite.png');			 
+		this.load.image('missile','assets/soundMissile.png');
+		this.load.image('alien', 'assets/meteor.png');
+		this.load.image('starBackground', 'assets/gameBackground.jpg');
+		this.load.image('gameOver', 'assets/gameOver.png');
+		this.load.image('meteorDeath', 'assets/explosion.png');
+		this.load.image('gameWin', 'assets/youWin.jpg');
 		//sounds
-		this.load.audio('laser','sounds/dinoRoar.mp3')
-		this.load.audio('explosion', 'sounds/explosion.mp3')
+		this.load.audio('laser','sounds/dinoRoar.mp3');
+		this.load.audio('explosion', 'sounds/explosion.mp3');
   }
 
 	//function to place the image in the center of the screen and change the size
