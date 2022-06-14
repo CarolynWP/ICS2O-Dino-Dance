@@ -44,7 +44,7 @@ class GameScene extends Phaser.Scene {
   preload () {
     console.log('Game Scene')
 		//images
-		this.load.image('starBackground', '/assets/gameBackground.jpg')
+		this.load.image('starBackground', './assets/gameBackground.jpg')
 		this.load.image('ship', 'assets/dinoSprite.png')
 		this.load.image('missile','assets/soundMissile.png')
 		this.load.image('alien', 'assets/meteor.png')
