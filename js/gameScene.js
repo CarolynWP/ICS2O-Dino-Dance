@@ -22,7 +22,8 @@ class GameScene extends Phaser.Scene {
 	//function to run Phaser's scene constructor code which will construct the scene
   constructor () {
     super({ key: 'gameScene' })
-		
+
+		this.death = null
 		this.background = null
 		this.ship = null
 		this.fireMissile = false
@@ -49,13 +50,15 @@ class GameScene extends Phaser.Scene {
 		this.load.image('alien', 'assets/meteor.png');
 		this.load.image('starBackground', 'assets/gameBackground.jpg');
 		this.load.image('gameOver', 'assets/gameOver.png');
-		this.load.image('meteorDeath', 'assets/explosion.png');
+		this.load.image('death', 'assets/explosion.png');
 		this.load.image('gameWin', 'assets/youWin.jpg');
 		//sounds
 		this.load.audio('laser','sounds/dinoRoar.mp3');
 		this.load.audio('explosion', 'sounds/explosion.mp3');
   }
 
+
+	
 	//function to place the image in the center of the screen and change the size
   create (data) {
 		this.background = this.add.image(0,0, 'starBackground').setScale(3.5)
@@ -75,7 +78,7 @@ class GameScene extends Phaser.Scene {
 		//to add collisions between the sound waves and meteors
 		this.physics.add.collider(this.missileGroup, this.alienGroup, function (missileCollide, alienCollide,){
 			//var variable for the explosion that plays after the meteor is hit from the missile
-			var meteorDeath = this.physics.add.sprite(alienCollide.x, alienCollide.y, 'meteorDeath')
+			var meteorDeath = this.physics.add.sprite(alienCollide.x, alienCollide.y, 'death')
 
 			//if the missile touches a meteor, the function is triggered and they are both destroyed then two meteors show up
 			alienCollide.destroy()
@@ -90,38 +93,56 @@ class GameScene extends Phaser.Scene {
 			this.sound.play('explosion')
 			//score gets updated
 			this.score = this.score + 1
+			console.log("this.score = " + this.score)
 			this.scoreText.setText('Score: ' + this.score.toString())
-			//new meteors are created
-			this.createAlien()
-			this.createAlien()
-		}.bind(this))
-
-			//to make the Game Over screen
-			this.physics.add.collider(this.ship, this.alienGroup, function (shipCollide, alienCollide){
-			this.sound.play('explosion')
-			this.physics.pause()
-			alienCollide.destroy()
-			shipCollide.destroy()
-				//score is reset
-			//this.score = 0
-				//game over screen is showm
-			this.background = this.add.image(1920 / 2, 1080 / 2, 'gameOver')
-			this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over! Click to play again.", this.gameOverTextStyle).setOrigin(0.5)
-				//when you click on the text, it resets back to the game scene
-			this.gameOverText.setInteractive({useHandCursor: true})
-			this.gameOverText.on('pointerdown', () => this.scene.start ('gameScene'))
-			
-			/*this.background = this.add.image(1920 / 2, 1080 / 2, 'gameWin')
-			this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "You win! Click to play again.", this.gameOverTextStyle).setOrigin(0.5)
+			if (this.score === 100){
+				console.log("***win")
+				this.background = this.add.image(1920 / 2, 1080 / 2, 'gameWin')
+				this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "You win! Click to play again.", this.gameOverTextStyle).setOrigin(0.5)
 				//score is reset
 				this.score = 0
 				//when you click on the text, it resets back to the game scene
 			this.gameOverText.setInteractive({useHandCursor: true})
-			this.gameOverText.on('pointerdown', () => this.scene.start ('gameScene')) */
+			this.gameOverText.on('pointerdown', () => this.scene.start ('gameScene')) 
+			}
+			else {
+				//new meteors are created
+				this.createAlien()
+				this.createAlien()
+			}
+		}.bind(this))
+
+			//to make the Game Over screen
+			this.physics.add.collider(this.ship, this.alienGroup, function (shipCollide, alienCollide){
+			this.death = ('death')
+		  var dinoDeath = this.physics.add.sprite(this.ship.x, this.ship.y, 'death')
+				
+			//this.sound.play('explosion')
+			//this.physics.pause()
+			alienCollide.destroy()
+			shipCollide.destroy()
+				
+				if (this.death != null){
+				
+				dinoDeath.destroy()
+				//start the game over scene
+				this.background = this.add.image(1920 / 2, 1080 / 2, 'gameOver')
+				this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over! Click to play again.", this.gameOverTextStyle).setOrigin(0.5)
+				//score is reset
+				this.score = 0
+				//game over screen is show
+				//when you click on the text, it resets back to the game scene
+				this.gameOverText.setInteractive({useHandCursor: true})
+				this.gameOverText.on('pointerdown', () => this.scene.start ('gameScene'))
+			}
+				
+			
+		
 		}.bind(this))
   }
 
   update (time, delta) {
+		
 		//to be able to use your keys to move the dinosaur and allow it to shoot missiles
 		const keyLeftObj = this.input.keyboard.addKey('LEFT')
 		const keyRightObj = this.input.keyboard.addKey('RIGHT')
@@ -134,7 +155,7 @@ class GameScene extends Phaser.Scene {
 			
 			//to make sure it can't go off the screen
 			if (this.ship.x < 0) {
-				this.ship.x = 0
+				this.ship.x = 1920
 			}
 		}
 		//IF statement if the right key is down
@@ -144,7 +165,7 @@ class GameScene extends Phaser.Scene {
 
 				//to make sure it can't go off the screen
 			if (this.ship.x > 1920) {
-				this.ship.x = 1920
+				this.ship.x = 0
 			}
 		} 
 		//IF statement if the spacebar is down
