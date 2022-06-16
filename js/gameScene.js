@@ -49,9 +49,9 @@ class GameScene extends Phaser.Scene {
 		this.load.image('missile','assets/soundMissile.png');
 		this.load.image('alien', 'assets/meteor.png');
 		this.load.image('starBackground', 'assets/gameBackground.jpg');
-		this.load.image('gameOver', 'assets/gameOver.png');
+		this.load.image('gameOver', 'assets/gameOver.gif');
 		this.load.image('death', 'assets/explosion.png');
-		this.load.image('gameWin', 'assets/youWin.jpg');
+		this.load.image('gameWin', 'assets/youWin.gif');
 		//sounds
 		this.load.audio('laser','sounds/dinoRoar.mp3');
 		this.load.audio('explosion', 'sounds/explosion.mp3');
@@ -114,19 +114,12 @@ class GameScene extends Phaser.Scene {
 
 			//to make the Game Over screen
 			this.physics.add.collider(this.ship, this.alienGroup, function (shipCollide, alienCollide){
-		  var dinoDeath = this.physics.add.sprite(shipCollide.x, shipCollide.y, 'death')
-				this.death = dinoDeath
-			//this.sound.play('explosion')
-			//this.physics.pause()
+		  
+			this.sound.play('explosion')
+			this.physics.pause()
 			alienCollide.destroy()
 			shipCollide.destroy()
 				
-				setTimeout(function(){
-			dinoDeath.destroy()
-			}, 5000);
-				
-				if (this.death != null){
-				console.log("NULL")
 				//start the game over scene
 					this.background = this.add.image(1920 / 2, 1080 / 2, 'gameOver')
 				this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over! Click to play again.", this.gameOverTextStyle).setOrigin(0.5)
@@ -136,7 +129,6 @@ class GameScene extends Phaser.Scene {
 				//when you click on the text, it resets back to the game scene
 				this.gameOverText.setInteractive({useHandCursor: true})
 				this.gameOverText.on('pointerdown', () => this.scene.start ('gameScene'))
-				}
 				
 		}.bind(this))
   }
@@ -191,8 +183,15 @@ class GameScene extends Phaser.Scene {
 			if (item.y < 0){
 				item.destroy()
 			}
+				//so missiles will not appear in the game over screen
+		if (this.death != null){
+			item.destroy()
+		}
+		//so the missiles will not appear in the win screen
+		if (this.score === true){
+			item.destroy()
+		}
 		})
-		
 		//incase you don't hit any meteors, a new one will appear at the start
 		this.alienGroup.children.each(function (item) {
       if (item.y > 1080) {
