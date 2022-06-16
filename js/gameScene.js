@@ -28,7 +28,7 @@ class GameScene extends Phaser.Scene {
 		this.ship = null
 		this.fireMissile = false
 		//the variable that will hold the score: First set to zero
-		this.score = 99
+		this.score = 98
 		//to display the score text
 		this.scoreText = null
 		//score font, size, and colour
@@ -66,6 +66,7 @@ class GameScene extends Phaser.Scene {
 		//to show the score on the screen
 		this.scoreText = this.add.text(10,10, 'Score ' + this.score.toString(), this.scoreTextStyle)
 		
+		this.death = this.add.image(1920, -1080, 'death')
 		//to give the sprites physics with collisions 
 		//for the dinosaur sprite (ship), it will also be placed at the bottom of the screen
 		this.ship = this.physics.add.sprite(1920 / 2, 1080 - 250, 'ship')
@@ -93,10 +94,9 @@ class GameScene extends Phaser.Scene {
 			this.sound.play('explosion')
 			//score gets updated
 			this.score = this.score + 1
-			console.log("this.score = " + this.score)
 			this.scoreText.setText('Score: ' + this.score.toString())
+			//if the player gets a score of 100, the win screen will be shown
 			if (this.score === 100){
-				console.log("***win")
 				this.background = this.add.image(1920 / 2, 1080 / 2, 'gameWin')
 				this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "You win! Click to play again.", this.gameOverTextStyle).setOrigin(0.5)
 				//score is reset
@@ -114,19 +114,21 @@ class GameScene extends Phaser.Scene {
 
 			//to make the Game Over screen
 			this.physics.add.collider(this.ship, this.alienGroup, function (shipCollide, alienCollide){
-			this.death = ('death')
-		  var dinoDeath = this.physics.add.sprite(this.ship.x, this.ship.y, 'death')
-				
+		  var dinoDeath = this.physics.add.sprite(shipCollide.x, shipCollide.y, 'death')
+				this.death = dinoDeath
 			//this.sound.play('explosion')
 			//this.physics.pause()
 			alienCollide.destroy()
 			shipCollide.destroy()
 				
-				if (this.death != null){
+				setTimeout(function(){
+			dinoDeath.destroy()
+			}, 5000);
 				
-				dinoDeath.destroy()
+				if (this.death != null){
+				console.log("NULL")
 				//start the game over scene
-				this.background = this.add.image(1920 / 2, 1080 / 2, 'gameOver')
+					this.background = this.add.image(1920 / 2, 1080 / 2, 'gameOver')
 				this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over! Click to play again.", this.gameOverTextStyle).setOrigin(0.5)
 				//score is reset
 				this.score = 0
@@ -134,10 +136,8 @@ class GameScene extends Phaser.Scene {
 				//when you click on the text, it resets back to the game scene
 				this.gameOverText.setInteractive({useHandCursor: true})
 				this.gameOverText.on('pointerdown', () => this.scene.start ('gameScene'))
-			}
+				}
 				
-			
-		
 		}.bind(this))
   }
 
