@@ -26,7 +26,7 @@ class GameScene extends Phaser.Scene {
 		this.dino = null
 		this.fireWave = false
 		//the variable that will hold the score: First set to zero
-		this.score = 0
+		this.score = 80
 		//to display the score text
 		this.scoreText = null
 		//text font, size, and colour
@@ -110,7 +110,7 @@ class GameScene extends Phaser.Scene {
 			//winning music plays
 			this.sound.play('winMusic')
 			//score is reset
-			this.score = 0
+			this.score = 80
 			//when you click on the text, it resets back to the game scene
 			this.gameWinText.setInteractive({useHandCursor: true})
 			this.gameWinText.on('pointerdown', () => this.scene.start ('gameScene')) 
