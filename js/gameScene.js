@@ -104,6 +104,7 @@ class GameScene extends Phaser.Scene {
 		
 		//if the player gets a score of 100, the win screen will be shown
 		if (this.score === 100){
+			this.physics.pause()
 			this.sound.stopAll()
 			this.background = this.add.image(1920 / 2, 1080 / 2, 'gameWin')
 			this.gameWinText = this.add.text(1920 / 2, 1080 / 2, "You win! Click to play again.", this.gameWinTextStyle).setOrigin(0.5)
