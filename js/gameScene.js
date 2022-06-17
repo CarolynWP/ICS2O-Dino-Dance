@@ -137,7 +137,7 @@ class GameScene extends Phaser.Scene {
 				this.background = this.add.image(1920 / 2, 1080 / 2, 'gameOver')
 				this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over! Click to play again.", this.gameOverTextStyle).setOrigin(0.5)
 				//score is reset
-				this.score = 99
+				this.score = 0
 				//game over screen is show
 				//when you click on the text, it resets back to the game scene
 				this.gameOverText.setInteractive({useHandCursor: true})
