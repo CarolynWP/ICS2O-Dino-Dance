@@ -26,7 +26,7 @@ class GameScene extends Phaser.Scene {
 		this.dino = null
 		this.fireWave = false
 		//the variable that will hold the score: First set to zero
-		this.score = 98
+		this.score = 0
 		//to display the score text
 		this.scoreText = null
 		//text font, size, and colour
@@ -84,34 +84,34 @@ class GameScene extends Phaser.Scene {
 		
 		//to add collisions between the sound waves and meteors
 		this.physics.add.collider(this.waveGroup, this.meteorGroup, function (meteorCollide, waveCollide,){
-			//var variable for the explosion that plays after the meteor is hit from the sound wave
-			var meteorDeath = this.physics.add.sprite(meteorCollide.x, meteorCollide.y, 'death')
-	
-			//if the wave touches a meteor, the function is triggered and they are both destroyed
-			meteorCollide.destroy()
-			waveCollide.destroy()
-			
-			//destroy the explosion image after .5 seconds
-			setTimeout(function(){
-			meteorDeath.destroy()
-			}, 500);
-			
-			//explosion sound plays
-			this.sound.play('explosion')
-			//score gets updated
-			this.score = this.score + 1
-			this.scoreText.setText('Score: ' + this.score.toString())
-			
-			//if the player gets a score of 100, the win screen will be shown
-			if (this.score === 100){
-				this.sound.stopAll()
-				this.background = this.add.image(1920 / 2, 1080 / 2, 'gameWin')
-				this.gameWinText = this.add.text(1920 / 2, 1080 / 2, "You win! Click to play again.", this.gameWinTextStyle).setOrigin(0.5)
-				//winning music plays
-				this.sound.play('winMusic')
-				//score is reset
-				this.score = 0
-				//when you click on the text, it resets back to the game scene
+		//var variable for the explosion that plays after the meteor is hit from the sound wave
+		var meteorDeath = this.physics.add.sprite(meteorCollide.x, meteorCollide.y, 'death')
+
+		//if the wave touches a meteor, the function is triggered and they are both destroyed
+		meteorCollide.destroy()
+		waveCollide.destroy()
+		
+		//destroy the explosion image after .5 seconds
+		setTimeout(function(){
+		meteorDeath.destroy()
+		}, 500);
+		
+		//explosion sound plays
+		this.sound.play('explosion')
+		//score gets updated
+		this.score = this.score + 1
+		this.scoreText.setText('Score: ' + this.score.toString())
+		
+		//if the player gets a score of 100, the win screen will be shown
+		if (this.score === 100){
+			this.sound.stopAll()
+			this.background = this.add.image(1920 / 2, 1080 / 2, 'gameWin')
+			this.gameWinText = this.add.text(1920 / 2, 1080 / 2, "You win! Click to play again.", this.gameWinTextStyle).setOrigin(0.5)
+			//winning music plays
+			this.sound.play('winMusic')
+			//score is reset
+			this.score = 0
+			//when you click on the text, it resets back to the game scene
 			this.gameWinText.setInteractive({useHandCursor: true})
 			this.gameWinText.on('pointerdown', () => this.scene.start ('gameScene')) 
 			}
