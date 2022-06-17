@@ -168,8 +168,7 @@ class GameScene extends Phaser.Scene {
 				//to make sure it can't go off the screen
 			if (this.dino.x > 1920) {
 				this.dino.x = 0
-			}
-		} 
+			} 
 		//IF statement if the spacebar is down
 		if (keySpaceObj.isDown === true){
 			if (this.fireWave === false){
