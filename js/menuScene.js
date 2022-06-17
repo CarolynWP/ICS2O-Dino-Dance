@@ -26,6 +26,9 @@ class MenuScene extends Phaser.Scene {
     console.log('Menu Scene')
 		this.load.image('menuSceneBackground', 'assets/Dino_Dance.png')
 		this.load.image('startButton', 'assets/startButton.webp')
+
+		//sounds
+		this.load.audio('menuMusic', 'sounds/menuMusic.mp3')
   }
 
 	//to place the images and put it on the screen
@@ -33,7 +36,7 @@ class MenuScene extends Phaser.Scene {
 		this.menuSceneBackgroundImage = this.add.sprite(0,0,'menuSceneBackground')
 		this.menuSceneBackgroundImage.x = 1920 / 2
 		this.menuSceneBackgroundImage.y = 1080 / 2
-
+		this.sound.play('menuMusic')
 		this.startButton = this.add.sprite(1920 / 2, (1080 / 2) + 100, 'startButton')
 		//to be able to use the button and make it interactive
 		this.startButton.setInteractive({ useHandCursor: true})
@@ -45,6 +48,7 @@ class MenuScene extends Phaser.Scene {
   }
 	clickButton (){
 		this.scene.start('ruleScene')
+		game.sound.stopAll()
 	}
 }
 

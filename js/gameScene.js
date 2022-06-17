@@ -55,6 +55,9 @@ class GameScene extends Phaser.Scene {
 		//sounds
 		this.load.audio('laser','sounds/dinoRoar.mp3');
 		this.load.audio('explosion', 'sounds/explosion.mp3');
+		this.load.audio('gameMusic', 'sounds/gameMusic.mp3');
+		this.load.audio('loseMusic', 'sounds/loseMusic.mp3');
+		this.load.audio('winMusic', 'sounds/winMusic.mp3');
   }
 
 
