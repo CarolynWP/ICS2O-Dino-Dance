@@ -83,7 +83,7 @@ class GameScene extends Phaser.Scene {
 		this.createMeteor()
 		
 		//to add collisions between the sound waves and meteors
-		this.physics.add.collider(this.waveGroup, this.meteorGroup, function (meteorCollide, dinoCollide,){
+		this.physics.add.collider(this.waveGroup, this.meteorGroup, function (meteorCollide, waveCollide,){
 			//var variable for the explosion that plays after the meteor is hit from the sound wave
 			var meteorDeath = this.physics.add.sprite(meteorCollide.x, meteorCollide.y, 'death')
 	
@@ -164,7 +164,7 @@ class GameScene extends Phaser.Scene {
 			if (keyRightObj.isDown  === true){
 			//if the right key is down, move it to the right
 			this.dino.x += 15
-
+			}
 				//to make sure it can't go off the screen
 			if (this.dino.x > 1920) {
 				this.dino.x = 0
