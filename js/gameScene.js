@@ -182,7 +182,7 @@ class GameScene extends Phaser.Scene {
 		}
 		//to check and make sure the spacebar has been lifted up to be able to reset so you can fire multiple sound waves
 		if (keySpaceObj.isUp === true){
-			this.fire = false
+			this.fireWave = false
 		}
 		//each wave group will run a function
 		this.waveGroup.children.each(function (item){
