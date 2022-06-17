@@ -111,7 +111,7 @@ class GameScene extends Phaser.Scene {
 			//winning music plays
 			this.sound.play('winMusic')
 			//score is reset
-			this.score = 50
+			this.score = 0
 			//when you click on the text, it resets back to the game scene
 			this.gameWinText.setInteractive({useHandCursor: true})
 			this.gameWinText.on('pointerdown', () => this.scene.start ('gameScene')) 
