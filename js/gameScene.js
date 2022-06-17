@@ -26,7 +26,7 @@ class GameScene extends Phaser.Scene {
 		this.dino = null
 		this.fireWave = false
 		//the variable that will hold the score: First set to zero
-		this.score = 0
+		this.score = 98
 		//to display the score text
 		this.scoreText = null
 		//text font, size, and colour
@@ -112,8 +112,8 @@ class GameScene extends Phaser.Scene {
 				//score is reset
 				this.score = 0
 				//when you click on the text, it resets back to the game scene
-			this.gameOverText.setInteractive({useHandCursor: true})
-			this.gameOverText.on('pointerdown', () => this.scene.start ('gameScene')) 
+			this.gameWinText.setInteractive({useHandCursor: true})
+			this.gameWinText.on('pointerdown', () => this.scene.start ('gameScene')) 
 			}
 			else {
 				//new meteors are created
@@ -136,7 +136,7 @@ class GameScene extends Phaser.Scene {
 				this.background = this.add.image(1920 / 2, 1080 / 2, 'gameOver')
 				this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game Over! Click to play again.", this.gameOverTextStyle).setOrigin(0.5)
 				//score is reset
-				this.score = 0
+				this.score = 99
 				//game over screen is show
 				//when you click on the text, it resets back to the game scene
 				this.gameOverText.setInteractive({useHandCursor: true})
