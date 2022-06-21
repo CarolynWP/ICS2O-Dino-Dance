@@ -26,7 +26,7 @@ class GameScene extends Phaser.Scene {
 		this.dino = null
 		this.fireWave = false
 		//the variable that will hold the score: First set to zero
-		this.score = 80
+		this.score = 0
 		//to display the score text
 		this.scoreText = null
 		//text font, size, and colour
